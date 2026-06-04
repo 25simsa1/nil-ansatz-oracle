@@ -8,5 +8,6 @@ scipy==1.17.1
 scikit-learn==1.9.0
 cvxpy==1.9.1
 
-# Dev-only: used to read the source papers (not needed by the pipeline itself).
+# Dev-only: tests, and reading the source papers (not needed by the pipeline itself).
+pytest
 pypdf
