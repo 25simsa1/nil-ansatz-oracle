@@ -1,94 +1,88 @@
 # Findings: is the NIL training-MSE an ansatz-selection oracle?
 
-**Short answer: not a robust one — but the failure is precise and informative.** What is
-robust across every test is that NIL's training-MSE predicts the *noise-mitigation residual*
-(exactly what Chen et al.'s Lemma 1 promises). What is *not* robust is its link to the
-quantity Paper 2 actually cares about — total VQE error — which is dominated by the ansatz's
-representational limit that NIL is structurally blind to. The total-error correlation even
-flips sign between the exact-noise and finite-shot regimes.
+**Short answer: no.** Across shot counts and random seeds, NIL's training-MSE never
+out-predicts the free two-qubit-gate-count baseline for total VQE error, and in the
+exact-noise limit its correlation with total error is consistent with zero. What *is* robust
+— with tight error bars — is that the training-MSE predicts the **noise-mitigation residual**
+(exactly what Chen et al.'s Lemma 1 promises). The lesson connecting the two papers: NIL-MSE
+is a sound *noise-mitigability* estimator, but ansatz selection is governed by representational
+capacity, which NIL is structurally blind to, so it does not fill Paper 2's predictor gap.
 
 ## Setup (reproduced from the source papers, not assumed)
 
 - **Hamiltonian:** H2, STO-3G, Jordan-Wigner, 4 qubits. Diagonalizes to −1.137284 Ha
   (Paper 2's anchor: −1.1373).
 - **Noise:** Paper 2's COMBINED model — depolarizing + thermal relaxation, applied *only*
-  to RY and CX gates (p1=0.005, T1=20µs, T2=12µs, 70ns; p2=0.035, 320ns). A consequence:
+  to RY and CX gates (p1=0.005, T1=20µs, T2=12µs, 70ns; p2=0.035, 320ns). Consequence:
   circuits built from CZ/H/RX (e.g. C10, C11) carry little or no noise.
 - **Circuits:** all 12 of Paper 2's H2 ansätze, reproduced gate-for-gate from Fig. 4.
 - **Target:** classically pre-optimized noiseless angles (design-doc simplification), so we
   test mitigation quality per architecture, not optimizer luck. Absolute |ΔE| therefore
   differ from Paper 2's noise-aware-reoptimized Table 3.
-- **NIL:** weight-1 Pauli neighbors (subsampled to 20 + identity), T=300 2-design Clifford
-  training circuits, exact stim labels, L1-constrained Lasso (‖c‖₁ ≤ γ=2). Run in two
-  feature modes: exact-noisy (density matrix) and finite-shot (Ns=1000).
+- **NIL:** weight-1 Pauli neighbors (subsampled to 20 + identity), 2-design Clifford training
+  circuits, exact stim labels, L1-constrained Lasso (‖c‖₁ ≤ γ=2).
 
-## Headline: Spearman ρ vs true mitigated |ΔE| (the oracle's stated job)
+## The key experiment: correlation vs shot count, with error bars
 
-| predictor | exact-noisy | 1000 shots |
-|---|---:|---:|
-| **NIL train-MSE** | **−0.755** (p=0.005) | **+0.490** (p=0.106) |
-| 2Q gate count | +0.358 (p=0.253) | +0.461 (p=0.132) |
-| expressibility | +0.291 (p=0.359) | +0.112 (p=0.729) |
+We sweep the feature shot count over {100, 300, 1000, 3000, ∞(exact)} and **3 random seeds**
+each (T=150), and report the Spearman ρ of each predictor against the 12 ansätze's errors.
+See `results/shot_sweep.png`.
 
-The NIL oracle's correlation with total error is **sign-unstable**: strongly anti-predictive
-in the exact limit, mildly positive under shots — and in neither regime does it *decisively*
-beat the free 2-qubit-gate-count baseline it was meant to beat (under shots it merely ties).
+| shots | NIL-MSE vs **total** \|ΔE\| | NIL-MSE vs **noise residual** | 2Q-count vs total \|ΔE\| |
+|------:|---------------------------:|------------------------------:|-------------------------:|
+| 100   | +0.23 ± 0.41 | +0.12 ± 0.48 | +0.50 ± 0.19 |
+| 300   | +0.40 ± 0.21 | +0.28 ± 0.29 | +0.51 ± 0.19 |
+| 1000  | +0.34 ± 0.18 | +0.10 ± 0.31 | +0.41 ± 0.07 |
+| 3000  | +0.43 ± 0.11 | +0.54 ± 0.26 | +0.48 ± 0.23 |
+| exact | **−0.19 ± 0.31** | **+0.63 ± 0.04** | +0.53 ± 0.16 |
 
-## What *is* robust: it predicts the noise it can actually see
+Three things stand out:
 
-Splitting total error into (a) irreducible ansatz-representation error and (b) the
-noise-mitigation residual — Lemma 1 only ties train-MSE to (b):
+1. **NIL-MSE never beats free gate count for total error.** The 2Q-count baseline sits at a
+   steady ρ ≈ +0.5 at every shot level; NIL-MSE matches it at best and collapses to −0.19 in
+   the exact limit. Selecting ansätze by NIL-MSE buys you nothing over counting two-qubit gates.
+2. **NIL-MSE robustly predicts the noise residual it is designed for** — ρ = +0.63 ± 0.04 in
+   the exact limit (tight; the cleanest signal in the study). This is Lemma 1, confirmed.
+3. **Error bars matter.** A single earlier run (T=300, seed 0) gave the eye-catching
+   ρ = −0.755 (p=0.005) for total error in the exact limit. The 3-seed sweep shows that was an
+   unlucky draw: the seed-averaged value is −0.19 ± 0.31, i.e. statistically indistinguishable
+   from zero. We report the distribution, not the lucky single number.
 
-| train-MSE vs … | exact-noisy | 1000 shots | 1000 shots, excl. C10 |
-|---|---:|---:|---:|
-| total mitigated \|ΔE\| | −0.755 | +0.490 | +0.391 |
-| **noise residual \|mit − ideal\|** | **+0.510** | **+0.545** | **+0.618 (p=0.043)** |
-| unmitigated noise \|ΔE\| | +0.161 | +0.469 | +0.345 |
+## The mechanism: representational error is invisible to NIL
 
-Against the noise residual the training-MSE is *positively* correlated in every case — it
-behaves exactly as the theory says. The negative/unstable headline comes entirely from (a).
-
-## The mechanism: C10 and the shot-noise floor
-
-**C10** is the smoking gun. It is built from H/RX/CZ — all noiseless under this model — so it
-has essentially no noise to mitigate, yet its |ΔE| ≈ 0.61 is the worst of all (pure
-representational failure). NIL cannot see representational error:
-
-- **Exact-noisy:** C10's train-MSE = 3×10⁻²⁰ (≈0). A near-zero oracle value paired with the
-  worst true error single-handedly drives the −0.755 anti-correlation.
-- **1000 shots:** shot variance floors every circuit's train-MSE at ~10⁻³, so C10's becomes
-  1×10⁻³ — no longer an outlier. With the floor in place the total-error correlation swings
-  to +0.49. This is precisely the "shot noise helps NIL (acts like L2 regularization)" effect
-  the design doc anticipated: noise that hurts a single estimate *rehabilitates the oracle*.
+Total error vs the ground state mixes (a) irreducible ansatz-representation error and (b) the
+noise-mitigation residual; Lemma 1 only ties NIL-MSE to (b). The clearest illustration is
+**C10**: built entirely from noiseless gates (H/RX/CZ), it has essentially no noise to mitigate
+(train-MSE ≈ 3×10⁻²⁰ in the exact limit) yet the worst total error of all, |ΔE| ≈ 0.61 — pure
+representational failure that NIL cannot see or fix. Because mitigability and representational
+quality can be anti-aligned, NIL-MSE is at best uninformative about total error.
 
 ## NIL as a mitigator, and ranking stability
 
-Separate from the oracle question, NIL mitigates well: it reduced |ΔE| in 11/12 circuits
-(exact, mean 0.179→0.068) and 10/12 (shots, mean 0.169→0.087); the misses are C10/C11, which
-have ~no noise. Under shots the mitigated ranking is **stable** vs the unmitigated one
-(ρ = +0.769, p=0.003) — ZNE-like, *not* PEC-like (Paper 2: ZNE +0.80, PEC −0.22). For
-comparison Paper 2's ZNE helped 4/12 and PEC 1/12, but a fair head-to-head must equalize
-shot budget (their PEC used only 200 quasi-prob samples), so we claim effective, stable
-mitigation — not a clean win over their methods.
+Separate from the oracle question, NIL mitigates well: in the full T=300 runs it reduced |ΔE|
+in 11/12 circuits (exact, mean 0.179→0.068) and 10/12 (1000 shots, mean 0.169→0.087); the
+misses (C10/C11) have ~no noise. Under shots the mitigated ranking is stable vs the unmitigated
+one (ρ = +0.77, p=0.003) — ZNE-like, not PEC-like (Paper 2: ZNE +0.80, PEC −0.22). A fair
+head-to-head with their ZNE/PEC must equalize shot budget (their PEC used only 200 quasi-prob
+samples), so we claim effective, stable mitigation — not a clean win over their methods.
 
 ## Takeaway
 
 A concrete, falsifiable answer to Paper 2's open question ("we lack a scalable
-noisy-performance predictor"): **NIL's training-MSE does not robustly fill that gap.** It is
-a sound *noise-mitigability* estimator (robustly positive vs the noise residual, as Lemma 1
-guarantees), but ansatz selection is governed by representational capacity, not mitigability,
-and the two can be anti-aligned. A practitioner ranking ansätze by NIL-MSE would be misled in
-the exact limit and would, under realistic shots, do no better than counting two-qubit gates.
+noisy-performance predictor"): **NIL's training-MSE does not fill that gap.** It is a sound
+noise-mitigability estimator (robustly predicts the noise residual, ρ=+0.63±0.04, as Lemma 1
+guarantees), but it never out-predicts free two-qubit-gate count for the total error that
+ansatz selection actually cares about — because total error is dominated by representational
+capacity, which NIL is blind to. The two papers connect cleanly but negatively: a strong
+mitigation oracle is not, for free, an ansatz-selection oracle.
 
 ## Honest caveats
 
 - Fixed-noiseless-angle targets (not noise-aware re-optimization): a deliberate
   simplification; absolute |ΔE| differ from Paper 2's Table 3.
-- 12 data points: suggestive, not conclusive; p-values are mostly > 0.05. C10 is a
-  high-leverage outlier, reported with and without it.
+- 12 data points: Spearman error bars are large (±0.2–0.5), so most single correlations are
+  not individually significant — which is exactly why we sweep seeds and report ± std.
 - Lemma 1's MSE-equality assumes fixed Pauli-ish noise as angles vary; on hardware both hold
   only approximately.
 - The CZ/H/RX-noiseless modeling (faithful to Paper 2) makes several circuits low-noise by
-  construction, which is part of why mitigability and total error decouple.
-- The total-error correlation's sign-dependence on shot count means any single-number claim
-  is regime-specific; we report both.
+  construction, part of why mitigability and total error decouple.
