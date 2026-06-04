@@ -1,0 +1,12 @@
+# Pinned to the versions that this pipeline was developed and validated against.
+# (Qiskit's API drifts fast — if something breaks on an upgrade, check current docs.)
+qiskit==2.4.1
+qiskit-aer==0.17.2
+stim==1.16.0
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.9.0
+cvxpy==1.9.1
+
+# Dev-only: used to read the source papers (not needed by the pipeline itself).
+pypdf

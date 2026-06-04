@@ -1,0 +1,13 @@
+# Python virtual environment (never commit — large, machine-specific)
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS / editor cruft
+.DS_Store
+*.swp
+
+# Generated result artifacts (plots, intermediate dumps); keep the dir, not its contents
+results/*
+!results/.gitkeep
