@@ -1,0 +1,191 @@
+{
+  "rows": [
+    {
+      "name": "C1",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.001021135222188942,
+      "noiseless_target": -1.8318636464775133,
+      "unmitigated_energy": -1.62284615722651,
+      "mitigated_energy": -1.8186705233189207,
+      "unmitigated_de": 0.22954201634307925,
+      "mitigated_de": 0.03371765025066864,
+      "mitigation_residual": 0.013193123158592668,
+      "expressibility": 0.20629296306170916,
+      "seconds": 26.757596969604492
+    },
+    {
+      "name": "C2",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0005973498322444648,
+      "noiseless_target": -1.8318636464775135,
+      "unmitigated_energy": -1.7948940282872594,
+      "mitigated_energy": -1.8265031610420397,
+      "unmitigated_de": 0.05749414528232988,
+      "mitigated_de": 0.0258850125275496,
+      "mitigation_residual": 0.00536048543547385,
+      "expressibility": 0.2578507403089589,
+      "seconds": 26.48505973815918
+    },
+    {
+      "name": "C3",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0006553044381688463,
+      "noiseless_target": -1.831863646477513,
+      "unmitigated_energy": -1.770117127814655,
+      "mitigated_energy": -1.8391533143708036,
+      "unmitigated_de": 0.08227104575493427,
+      "mitigated_de": 0.013234859198785642,
+      "mitigation_residual": 0.007289667893290552,
+      "expressibility": 0.22147521443666904,
+      "seconds": 25.918686866760254
+    },
+    {
+      "name": "C4",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0008030289728782173,
+      "noiseless_target": -1.831863646477513,
+      "unmitigated_energy": -1.7712393966055258,
+      "mitigated_energy": -1.8409543707955838,
+      "unmitigated_de": 0.08114877696406353,
+      "mitigated_de": 0.01143380277400552,
+      "mitigation_residual": 0.009090724318070675,
+      "expressibility": 0.2271948201990781,
+      "seconds": 26.363273859024048
+    },
+    {
+      "name": "C5",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0009365179720088646,
+      "noiseless_target": -1.8318636464775122,
+      "unmitigated_energy": -1.783249359296963,
+      "mitigated_energy": -1.8845731999548625,
+      "unmitigated_de": 0.06913881427262636,
+      "mitigated_de": 0.03218502638527321,
+      "mitigation_residual": 0.05270955347735029,
+      "expressibility": 0.2011474986478674,
+      "seconds": 31.489644050598145
+    },
+    {
+      "name": "C6",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0008734372897907786,
+      "noiseless_target": -1.8318636464775127,
+      "unmitigated_energy": -1.7912321252900059,
+      "mitigated_energy": -1.821864110353334,
+      "unmitigated_de": 0.06115604827958343,
+      "mitigated_de": 0.030524063216255337,
+      "mitigation_residual": 0.009999536124178698,
+      "expressibility": 0.19076299874076266,
+      "seconds": 30.459918975830078
+    },
+    {
+      "name": "C7",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0008330654548190497,
+      "noiseless_target": -1.8318636464775127,
+      "unmitigated_energy": -1.6764762536975566,
+      "mitigated_energy": -1.7947238712680362,
+      "unmitigated_de": 0.1759119198720327,
+      "mitigated_de": 0.05766430230155306,
+      "mitigation_residual": 0.03713977520947642,
+      "expressibility": 0.21187964706833615,
+      "seconds": 27.482773780822754
+    },
+    {
+      "name": "C8",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 0.0007867122977367113,
+      "noiseless_target": -1.8318636464775129,
+      "unmitigated_energy": -1.7577523986855283,
+      "mitigated_energy": -1.8042189371609603,
+      "unmitigated_de": 0.09463577488406094,
+      "mitigated_de": 0.048169236408629024,
+      "mitigation_residual": 0.027644709316552607,
+      "expressibility": 0.24400326417296397,
+      "seconds": 27.82045602798462
+    },
+    {
+      "name": "C9",
+      "two_qubit_gates": 6,
+      "n_neighbors": 21,
+      "train_mse": 0.00024824954048406427,
+      "noiseless_target": -1.8318636464775118,
+      "unmitigated_energy": -1.616124114214232,
+      "mitigated_energy": -1.806639805211323,
+      "unmitigated_de": 0.23626405935535733,
+      "mitigated_de": 0.045748368358266234,
+      "mitigation_residual": 0.025223841266188707,
+      "expressibility": 0.7015897571454756,
+      "seconds": 27.840320110321045
+    },
+    {
+      "name": "C10",
+      "two_qubit_gates": 6,
+      "n_neighbors": 1,
+      "train_mse": 0.001013276513008966,
+      "noiseless_target": -1.245877696082542,
+      "unmitigated_energy": -1.2286575292504314,
+      "mitigated_energy": -1.2239839692439773,
+      "unmitigated_de": 0.6237306443191579,
+      "mitigated_de": 0.628404204325612,
+      "mitigation_residual": 0.02189372683856461,
+      "expressibility": 0.7015897571454756,
+      "seconds": 9.121969938278198
+    },
+    {
+      "name": "C11",
+      "two_qubit_gates": 6,
+      "n_neighbors": 21,
+      "train_mse": 0.00042585724966899855,
+      "noiseless_target": -1.831863646477514,
+      "unmitigated_energy": -1.8361089249674234,
+      "mitigated_energy": -1.8262421376798939,
+      "unmitigated_de": 0.016279248602165897,
+      "mitigated_de": 0.02614603588969544,
+      "mitigation_residual": 0.005621508797620134,
+      "expressibility": 0.021599866496715067,
+      "seconds": 35.82016468048096
+    },
+    {
+      "name": "C12",
+      "two_qubit_gates": 6,
+      "n_neighbors": 21,
+      "train_mse": 0.001259518819272452,
+      "noiseless_target": -1.852337537233875,
+      "unmitigated_energy": -1.5484408411003763,
+      "mitigated_energy": -1.7625567262275466,
+      "unmitigated_de": 0.303947332469213,
+      "mitigated_de": 0.08983144734204274,
+      "mitigation_residual": 0.08978081100632851,
+      "expressibility": 0.022465583085115474,
+      "seconds": 36.77248191833496
+    }
+  ],
+  "correlations": {
+    "NIL train-MSE": {
+      "rho": 0.4895104895104896,
+      "p": 0.10625237175934595
+    },
+    "2Q gate count": {
+      "rho": 0.4608824008492703,
+      "p": 0.13156832757312653
+    },
+    "expressibility": {
+      "rho": 0.1120842349341354,
+      "p": 0.7287361038413869
+    },
+    "stability (unmit vs mit)": {
+      "rho": 0.7692307692307694,
+      "p": 0.00344645026182745
+    }
+  },
+  "e_exact": -1.8523881735695893
+}

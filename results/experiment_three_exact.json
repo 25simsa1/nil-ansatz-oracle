@@ -1,0 +1,65 @@
+{
+  "rows": [
+    {
+      "name": "C2",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 3.27930750669925e-06,
+      "noiseless_target": -1.8318636464775135,
+      "unmitigated_energy": -1.804454730764487,
+      "mitigated_energy": -1.8316001767224326,
+      "unmitigated_de": 0.047933442805102366,
+      "mitigated_de": 0.02078799684715671,
+      "mitigation_residual": 0.0002634697550809584,
+      "expressibility": 0.2578507403089589,
+      "seconds": 20.19344997406006
+    },
+    {
+      "name": "C7",
+      "two_qubit_gates": 4,
+      "n_neighbors": 21,
+      "train_mse": 3.389942888269002e-05,
+      "noiseless_target": -1.8318636464775127,
+      "unmitigated_energy": -1.6968781965764748,
+      "mitigated_energy": -1.8269578914819813,
+      "unmitigated_de": 0.15550997699311453,
+      "mitigated_de": 0.025430282087608003,
+      "mitigation_residual": 0.004905754995531364,
+      "expressibility": 0.21187964706833615,
+      "seconds": 20.86629033088684
+    },
+    {
+      "name": "C9",
+      "two_qubit_gates": 6,
+      "n_neighbors": 21,
+      "train_mse": 1.8670064545681705e-05,
+      "noiseless_target": -1.8318636464775118,
+      "unmitigated_energy": -1.5796639158029493,
+      "mitigated_energy": -1.820549849262947,
+      "unmitigated_de": 0.27272425776664,
+      "mitigated_de": 0.03183832430664224,
+      "mitigation_residual": 0.011313797214564714,
+      "expressibility": 0.7015897571454756,
+      "seconds": 20.155302047729492
+    }
+  ],
+  "correlations": {
+    "NIL train-MSE": {
+      "rho": 0.5,
+      "p": 0.6666666666666666
+    },
+    "2Q gate count": {
+      "rho": 0.8660254037844387,
+      "p": 0.33333333333333326
+    },
+    "expressibility": {
+      "rho": 0.5,
+      "p": 0.6666666666666666
+    },
+    "stability (unmit vs mit)": {
+      "rho": 1.0,
+      "p": 0.0
+    }
+  },
+  "e_exact": -1.8523881735695893
+}

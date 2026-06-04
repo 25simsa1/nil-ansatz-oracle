@@ -38,6 +38,14 @@ Reproduced from the source papers (not guessed):
 - Noise model matches Paper 2's COMBINED model exactly (noise only on RY + CNOT).
 - The three starter ansätze (C2, C7, C9) reproduced from Paper 2's Fig. 4.
 
+**Result (all 12 H2 ansätze): see [`FINDINGS.md`](FINDINGS.md).** In short — NIL's
+training-MSE robustly predicts the *noise-mitigation residual* (as its Lemma 1 guarantees),
+but it is *not* a robust ansatz-selection oracle: its correlation with total VQE error flips
+sign between exact-noise (ρ=−0.76) and 1000-shot (ρ=+0.49) regimes and never decisively beats
+free two-qubit-gate count, because total error is dominated by representational limits NIL
+can't see. NIL does mitigate effectively (helps 10–11/12 circuits) and stably (ZNE-like,
+ρ=+0.77).
+
 See `CLAUDE.md` for the full experiment design and `src/` for the pipeline.
 
 ## Layout
