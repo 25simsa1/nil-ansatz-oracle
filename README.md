@@ -22,7 +22,7 @@ This is a simulation-first experiment connecting two papers:
 ## The hypothesis
 
 If NIL's training-MSE equals the target MSE, then it is a *classically computable*
-measure of "how mitigable is this ansatz" — exactly the scalable noisy-performance
+measure of "how mitigable is this ansatz", exactly the scalable noisy-performance
 predictor Paper 2 says is missing. We test whether that MSE ranks the ansätze by their
 true ground-state-energy error **better than** the free baselines (2-qubit gate count,
 expressibility), and whether the resulting ranking is **stable** (ZNE-like, good) or
